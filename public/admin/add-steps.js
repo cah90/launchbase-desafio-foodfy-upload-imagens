@@ -16,3 +16,23 @@ function addSteps() {
 document
 .querySelector(".add-step")
 .addEventListener("click", addSteps)
+
+const PhotosUpload = {
+  uploadLimit: 5,
+  handleFileInput(event) {
+    const {files: fileList} = event.target
+
+    if (fileList.length == 0) {
+      alert("Envie pelo menos uma imagem.")
+      event.preventDefault() 
+
+    } else if (fileList.length > this.uploadLimit) {
+      alert(`Envie no máximo ${this.uploadLimit} fotos`)
+      event.preventDefault()
+      
+    } else {
+      // The good case
+
+    }
+  }
+}
