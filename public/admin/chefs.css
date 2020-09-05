@@ -1,0 +1,33 @@
+/* SHOW */
+.avatar {
+  height: 200px;
+  width: 200px;
+  border-radius: 50%;
+  background-size: cover;
+  background-position: center;
+  margin: 0 auto;
+}
+
+.wrapper h1 {
+  font-size: 2.25rem;
+  text-align: center;
+  color: var(--color-black);
+  margin-bottom: 4px;
+  margin-top: 30px;
+}
+
+.wrapper h2 {
+  color: var(--color-black);
+  margin-bottom: 30px;
+}
+
+.wrapper h3.recipes-sub {
+  font-size: 1.25rem;
+  font-weight: 400;
+  color: var(--color-dark-grey);
+  text-align: center;
+  line-height: initial;
+  display: block;
+  margin-bottom: 50px;
+}
+

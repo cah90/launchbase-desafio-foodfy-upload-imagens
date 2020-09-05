@@ -1,0 +1,129 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto:400,700&display=swap');
+
+:root {
+  --color-black: #101010;
+  --color-border: #dddddd;
+  --color-light-grey: #eeeeee;
+  --color-grey: #999999;
+  --color-dark-grey: #777777;
+  --color-darker-grey: #444444;
+  --color-pink: #fadfdb;
+  --color-black: #111111;
+  --color-purple: #6558C3;
+  --color-red: #DC4747;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+body {
+  font-family: 'Roboto', sans-serif;
+  font-size: 1rem;
+}
+
+.wrapper {
+  max-width: 940px;
+  margin: 0 auto;  
+  min-height: 90vh;
+}
+
+/* HEADER */
+
+header {
+  padding: 32px 0;
+  display: flex;
+  align-items: center;
+}
+
+header .logo {
+  flex-grow: 1;
+}
+
+header .links {
+  flex-grow: 2;
+}
+
+header .links a {
+  margin: 0 19px 0 0;
+  text-decoration: none;
+  color: var(--color-black); 
+}
+
+header .btn {
+  border-radius: 4px;
+  font-weight: bold;
+  font-size: 1rem;
+  line-height: 26px;
+  letter-spacing: 1px;
+  padding: 8px 16px;
+  float: right;
+  cursor: pointer;
+  outline: none;
+  color: white;
+  margin-left: 5px;
+  background-color: var(--color-purple);
+}
+
+header input {
+  font-size: 0.88rem;
+  padding: 11px 16px;
+  border: 1px solid var(--color-border);
+  border-radius: 4px;
+  outline: none;
+  color: var(--color-black);
+}
+
+header input::placeholder {
+  color: var(--color-grey);
+}
+
+.active {
+  font-weight: bold;
+}
+
+/* FOOTER */
+
+footer {
+  background-color: var(--color-light-grey);
+  margin-top: 50px;
+}
+
+footer p {
+  color: var(--color-grey);
+  text-align: center;
+  padding: 23px 23px;
+}
+
+/*INDEX FOR SHOW ADMIN AND CHEFS MAIN*/
+.wrapper-chefs {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+}
+
+.wrapper .card-chef-avatar {
+  height: 70px;
+  width: 70px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.chefs {
+  display: grid;
+  grid-template-columns: 70px 1fr;
+  margin-bottom: 30px;
+  line-height: 26px;
+}
+
+.wrapper p.card-name {
+  font-size: 1.13rem;
+  color: var(--color-black);
+}
+
+.wrapper .card-info {
+  align-self: center;
+  margin-right: 5px;
+}
+

@@ -1,0 +1,49 @@
+{% extends "./layout.njk" %}
+
+{% block head %}
+<title>Home - Foodfy</title>
+<link rel="stylesheet" href="/main/main.css">
+{% endblock %}
+
+{% block header %}
+  <form action="/results" method="GET">
+    <input type="text" name="filter" placeholder="Busque uma receita">
+    <button type="submit" class="btn">Buscar</button>
+  </form>
+{%endblock%}
+
+{% block content %}
+
+<div class="banner">
+  <div class="banner__information">
+    <h1>As melhores receitas</h1>
+    <p>Aprenda a construir os melhores pratos com
+      receitas criadas por profissionais do mundo inteiro.</p>
+  </div>
+
+  <div class="banner__image-container">
+    <img src="/main/img/chef.png" alt="Chef">
+  </div>
+</div>
+
+<h1 class="section-cards-title">Mais Acessadas</h1>
+
+<section class="cards">
+  {% for recipe in recipes %}
+  <div class="card" id="{{recipe.name}}">
+      <div class="card__image-container">
+        <a href="/recipes/{{recipe.id}}"><img src="{{recipe.image}}" alt="{{recipe.title}}"></a>
+    </div>
+
+    <div class="card__recipe">
+      <p class="card__recipe-name">{{recipe.title}}</p>
+      <p class="card__author">{{recipe.name}}</p>
+    </div>
+  </div>
+
+  {% endfor %}
+  
+</section>
+
+{% endblock %}
+

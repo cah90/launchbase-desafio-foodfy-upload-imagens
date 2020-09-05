@@ -1,0 +1,76 @@
+{% extends "admin/common/layout.njk" %}
+
+{% block head %}
+  <title>Edite {{recipe.title}}</title>
+  <link rel="stylesheet" href="/admin/recipes.css">
+{% endblock %}
+
+{% block content %}
+
+<form id="form-delete" action="/admin/recipes?_method=DELETE" method="POST">
+  <input type="hidden" name="id" value={{ recipe.id }}>
+  <button class="btn btn-delete" type="submit">Deletar</button>
+</form>
+
+<form action="/admin/recipes?_method=PUT" method="POST">
+  <input type="hidden" name="id" value={{ recipe.id }}>
+  <button type="submit" class="btn btn-save">Salvar receita</button>
+
+<h3>Editar Receita</h3>
+
+<div class="item">
+<h4>Imagem da receita</h4>
+<input type="url" name="image" value="{{recipe.image}}">
+</div>
+
+<div class="item">
+<h4>Nome da Receita</h4>
+<input type="text" name="title" value="{{recipe.title}}">
+</div>
+
+<div class="item">
+<h4>Chef</h4>
+<div>
+  <select type="select" name="chef">
+  {% for chef in chefs %}
+  <option value="{{chef.id}}" {% if recipe.chef_id == chef.id %} selected {% endif %}>
+  {{chef.name}}
+  </option>
+  {% endfor %}
+  </select>
+</div>
+</div>
+
+
+<div class="item" id="ingredients">
+<h4>Ingredientes</h4>
+{% for ingredient in recipe.ingredients %}
+<div class="ingredient">
+<input type="text" name="ingredients[]" value="{{ingredient}}">
+</div>
+{% endfor %}
+</div>
+<button type="button" class="add-ingredient">Adicionar novo ingrediente</button>
+
+<div class="item" id="steps">
+<h4>Modo de preparo</h4>
+{% for step in recipe.preparation %}
+<div class="step">
+<input type="text" name="preparation[]" value="{{step}}">
+</div>
+{% endfor %}
+</div>
+<button type="button" class="add-step">Adicionar novo passo</button>
+
+<div class="item">
+<h4>Informações adicionais</h4>
+<textarea name="information">{{recipe.information}}</textarea>
+</div>
+</form>
+
+<script src="/admin/confirmation.js"></script>
+<script src="/admin/add-ingredients.js"></script>
+<script src="/admin/add-steps.js"></script>
+
+{% endblock %}
+

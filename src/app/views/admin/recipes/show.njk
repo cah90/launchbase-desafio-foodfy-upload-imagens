@@ -1,0 +1,38 @@
+{% extends "admin/common/layout.njk" %}
+
+{% block head %}
+  <title>Receitas - Admin Foodfy</title>
+  <link rel="stylesheet" href="/admin/recipes.css">
+{% endblock %}
+
+{% block content %}
+
+<h3>Receita: {{recipe.title}}</h3>
+<a href="/admin/recipes/{{recipe.id}}/edit" class="btn btn-edit">Editar receita</a>
+<div class="avatar" style="background-image: url({{recipe.image}})"></div>
+<h1>{{recipe.title}}</h1>
+<h3 class="author">por {{recipe.name}}</h3> 
+
+<h2 class="title">Ingredientes</h2>
+<div class="list-ingredients">
+<ul>
+{% for ingredient in recipe.ingredients %}
+<li>{{ingredient}}</li>
+{% endfor %}
+</ul>
+</div>
+
+<h2 class="title">Modo de preparo</h2>
+<div class="list-steps">
+<ul>
+{% for step in recipe.preparation %}
+<li>{{step}}</li>
+{% endfor %}
+</ul>
+</div> 
+
+<h2 class="title">Informações adicionais</h2>
+<p>{{recipe.information}}</p>
+
+{% endblock %}
+

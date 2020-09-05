@@ -1,0 +1,77 @@
+{% extends "admin/common/layout.njk" %}
+
+{% block head %}
+  <title>Crie Nova Receita</title>
+  <link rel="stylesheet" href="/admin/common.css">
+{% endblock %}
+
+{% block content %}
+
+<form action="/admin/recipes" method="POST">
+
+<h3>Criar receita</h3>
+
+<button type="submit" class="btn btn-save">Salvar receita</button>
+
+<div class="item">
+<h4>Imagem da receita</h4>
+<div>
+    <div id="photos-upload">
+      <input 
+      id="photos-input"
+      type="file" 
+      name="photos" 
+      multiple
+      accept="image/*"
+      onchange="PhotosUpload.handleFileInput(event)"
+      >
+      <p>Selecione até 5 fotos</p>
+    </div>
+    <div id="photos-preview"></div>
+</div>
+
+<div class="item">
+<h4>Nome da Receita</h4>
+<input type="text" name="title" placeholder="Ex: Torta de Maça">
+</div>
+
+<div class="item">
+<h4>Chef</h4>
+<div>
+  <select type="select" name="chef">
+  <option value="" disabled selected>Selecione um chef</option>
+  {% for chef in chefs %}
+  <option value="{{chef.id}}">
+  {{chef.name}}
+  </option>
+  {% endfor %}
+  </select>
+</div>
+</div>
+
+<div class="item" id="ingredients">
+<h4>Ingredientes</h4>
+<div class="ingredient">
+<input type="text" name="ingredients[]" value="">
+</div>
+</div>
+<button type="button" class="add-ingredient">Adicionar novo ingrediente</button>
+
+<div class="item" id="steps">
+<h4>Modo de preparo</h4>
+<div class="step">
+<input type="text" name="preparation[]" value="">
+</div>
+</div>
+<button type="button" class="add-step">Adicionar novo passo</button>
+
+<div class="item">
+<h4>Informações adicionais</h4>
+<textarea name="information"></textarea>
+</div>
+</form>
+
+<script src="/admin/add-ingredients.js"></script>
+<script src="/admin/add-steps.js"></script>
+
+{% endblock %}

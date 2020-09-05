@@ -1,0 +1,25 @@
+{% extends "admin/common/layout.njk" %}
+
+{% block head %}
+  <title>Receitas - Admin Foodfy</title>
+  <link rel="stylesheet" href="/admin/recipes.css">
+{% endblock %}
+
+{% block content %}
+<h3>Gerenciar receitas</h3>
+
+<div class="wrapper-cards">
+{% for recipe in recipes %}
+<div class="cards">
+<img class="card-avatar" src="{{recipe.image}}">
+<div class="card-info">
+<p class="card-main-title">{{recipe.title}}</p>
+<p class="card-author">por {{recipe.name}}</p>
+<a href="/admin/recipes/{{recipe.id}}">Visualizar</a>
+</div>
+</div>
+{% endfor %} 
+</div>
+
+{% endblock %}
+

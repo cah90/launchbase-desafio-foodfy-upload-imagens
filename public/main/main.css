@@ -1,0 +1,155 @@
+/* BANNER */
+.banner {
+  background-color: var(--color-pink);
+  border-radius: 30px;
+  display: flex;
+}
+
+.banner__information {
+  width: 316px;
+  position: relative;
+  top: 117px;
+  left: 60px;
+}
+
+.banner__information h1 {
+  font-size: 2rem;
+  margin-bottom: 10px;
+}
+
+.banner__information p {
+  font-size: 1.13rem;
+  opacity: 70%;
+  line-height: 28px;
+}
+
+.banner__image-container img {
+  margin-left: 150%;
+  margin-top: 66px;
+}
+
+/* ABOUT */
+.about-text {
+  max-width: 940px;
+  margin: 0 auto;
+}
+
+.about-text h1 {
+  margin-top: 50px;
+  margin-bottom: 20px;
+  font-size: 1.5rem;
+}
+
+.about-text h2 {
+  margin-top: 30px;
+  margin-bottom: 20px;
+  font-size: 1.25rem;
+}
+
+.about-text p {
+  color: var(--color-darker-grey);
+  line-height: 28px;
+}
+
+/* RECIPE */
+h3 {
+  padding-bottom: 20px;
+}
+
+h4 {
+  font-weight: 400;
+  font-size: 0.75rem;
+  color: var(--color-grey);
+  margin-left: 20px;
+}
+
+ul {
+  margin-bottom: 20px;
+}
+
+.button {
+  display: flex;
+  cursor: pointer;
+}
+
+.recipe {
+  line-height: 20px;
+}
+
+.recipe-header {
+  line-height: 40px;
+}
+
+.recipe-header h1, .recipe-header h2 {
+  text-align: center;
+}
+
+.recipe-header h2 {
+  font-size: 1.25rem;
+  font-weight: 400;
+  color: var(--color-dark-grey);
+}
+
+.recipe-content {
+  list-style-position: inside;
+}
+
+.hide {
+  display: none;
+}
+
+/* RECIPES */
+.section-cards-title {
+  font-size: 1.25rem;
+  margin: 50px 0px 20px;
+}
+
+.cards {
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 20px;
+}
+
+.card__image-container img {
+  border-radius: 15px;
+  width: 300px;
+  height: 140px;
+  object-fit: cover;
+} 
+
+.card__recipe {
+  margin-top: 20px;
+  font-size: 1.13rem;
+  color: var(--color-black);
+}
+
+.card__author {
+  font-size: 0.88rem;
+  margin-top: 5px;
+  color: var(--color-dark-grey);
+}
+
+/*CHEFS*/
+.wrapper .chefs {
+  line-height: initial;
+}
+.wrapper h3.total-recipes {
+  color: var(--color-dark-grey);
+  font-size: 0.88rem;
+  font-weight: 400;
+}
+
+.wrapper p.card-name {
+  margin-bottom: 5px;
+}
+
+.wrapper div.card-info {
+  margin-left: 15px;
+}
+
+/*RESULTS*/
+.wrapper h3.results {
+  font-size: 1.5rem;
+  color: var(--color-black);
+}
