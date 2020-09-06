@@ -19,6 +19,7 @@ document
 
 const PhotosUpload = {
   uploadLimit: 5,
+  
   handleFileInput(event) {
     const {files: fileList} = event.target
 
@@ -34,5 +35,9 @@ const PhotosUpload = {
       // The good case
 
     }
+
+    Array.from(fileList).forEach( (file) => {
+      return file.name 
+    })
   }
 }
