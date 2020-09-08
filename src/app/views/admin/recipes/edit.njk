@@ -12,7 +12,7 @@
   <button class="btn btn-delete" type="submit">Deletar</button>
 </form>
 
-<form action="/admin/recipes?_method=PUT" method="POST">
+<form action="/admin/recipes?_method=PUT" method="POST" enctype="multipart/form-data">
   <input type="hidden" name="id" value={{ recipe.id }}>
   <button type="submit" class="btn btn-save">Salvar receita</button>
 

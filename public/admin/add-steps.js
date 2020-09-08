@@ -62,6 +62,29 @@ const PhotosUpload = {
       event.preventDefault()
       return true
     } 
+
+    const photosDiv = []
+    /* preview is the container of images and each image is a childNode.
+    this.preview.childNodes => a nodeList with the images.
+    this.preview => gives you the divs.
+    The classList is property that returns the class name of an element. */
+    //console.log("the container", this.preview)
+    //console.log("the images", this.preview.childNodes)
+
+    this.preview.childNodes.forEach( item => {
+      if(item.classList && item.classList.value == 'photo') {
+        photosDiv.push(item)
+      }
+    })
+
+    const totalPhotos = this.fileList.length + photosDiv.length
+    if(totalPhotos > this.uploadLimit) {
+      alert("Você atingiu o limite máximo de fotos.")
+      event.preventDefault()
+      return true
+    }
+
+
     return false
   },
 

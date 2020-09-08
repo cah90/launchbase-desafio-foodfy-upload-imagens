@@ -3,7 +3,7 @@ const routes = express.Router()
 const chefs = require('./app/controllers/admin/chefs.js')
 const recipes = require('./app/controllers/admin/recipes.js')
 const main = require('./app/controllers/main.js')
-
+const multer = require('./app/middlewares/multer')
 
 module.exports = routes
 
@@ -20,7 +20,7 @@ routes.get("/admin/recipes", recipes.index)
 routes.get("/admin/recipes/create", recipes.create)
 routes.get("/admin/recipes/:id", recipes.show)
 routes.get("/admin/recipes/:id/edit", recipes.edit)
-routes.post("/admin/recipes", recipes.post)
+routes.post("/admin/recipes", multer.array("photos", 5), recipes.post)
 routes.put("/admin/recipes", recipes.put)
 routes.delete("/admin/recipes", recipes.delete)
 

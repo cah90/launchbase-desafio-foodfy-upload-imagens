@@ -1,4 +1,5 @@
 const Recipe = require("../../models/recipe")
+const File = require("../../models/file")
 
 module.exports = {
   index(req, res) {
@@ -20,8 +21,12 @@ module.exports = {
 
     for(key of keys) {
       if(req.body[key] == "") {
-        return res.send("Please fill all the gaps")
+        return res.send("Please fill all the fields")
       }
+    }
+
+    if(req.files.length == 0) {
+      return res.send('Please, send at least one image')
     }
 
     Recipe.create(req.body, (recipe) => {
