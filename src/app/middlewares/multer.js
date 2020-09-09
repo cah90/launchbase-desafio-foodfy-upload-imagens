@@ -5,7 +5,7 @@ const storage = multer.diskStorage({
     callback(null, './public/images')
   },
   filename: (req, file, callback) => {
-    callback(null, `${Data.now().toString()}-${file.originalname}`) 
+    callback(null, `${Date.now().toString()}-${file.originalname}`) 
   }
 })
 
@@ -14,13 +14,13 @@ const fileFilter = (req, file, callback) => {
   .find(acceptedFormat => acceptedFormat == file.mimetype) 
 
   if(isAccepted) {
-    return cb(null, true)
+    return callback(null, true)
   }
 
   return callback(null, false)
 }
 
-module.exports = multer {
+module.exports = multer ({
   storage,
   fileFilter
-}
+})

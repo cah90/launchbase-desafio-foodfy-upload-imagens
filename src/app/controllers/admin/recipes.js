@@ -14,9 +14,8 @@ module.exports = {
     })
   },
   
-  post(req, res) {
-  
-    const keys = Object.keys(req.body)
+  async post(req, res) {
+    const keys = Object.keys(req.body) //return an array with the keys of the object.
     keys.pop()
 
     for(key of keys) {
@@ -29,9 +28,17 @@ module.exports = {
       return res.send('Please, send at least one image')
     }
 
-    Recipe.create(req.body, (recipe) => {
-      return res.redirect(`/admin/recipes/${recipe.id}`)
-    })
+   const result = await Recipe.create(req.body)
+   const recipeId = result.rows[0].id
+
+   const filesPromise = req.files.map(file => File.create({
+     ...file,
+     recipe_id: recipeId
+   }))
+
+   await Promise.all(filesPromise)
+
+  return res.redirect(`/admin/recipes/${recipeId}`)
   },
   
   show(req, res) {
