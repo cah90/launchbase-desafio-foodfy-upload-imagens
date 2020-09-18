@@ -25,6 +25,7 @@ const PhotosUpload = {
   files: [],
 
   handleFileInput(event) {
+    console.log('i was clicked')
     //const {files: fileList} = event.target
     this.fileList = event.target.files
     this.input = event.target

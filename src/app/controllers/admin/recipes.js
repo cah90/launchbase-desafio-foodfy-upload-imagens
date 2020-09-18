@@ -1,5 +1,6 @@
 const Recipe = require("../../models/recipe")
 const File = require("../../models/file")
+const RecipeFile = require("../../models/recipeFile")
 
 module.exports = {
   index(req, res) {
@@ -25,20 +26,32 @@ module.exports = {
     }
 
     if(req.files.length == 0) {
-      return res.send('Please, send at least one image')
+      return res.send('You need to have at least one image.')
     }
 
    const result = await Recipe.create(req.body)
    const recipeId = result.rows[0].id
 
    const filesPromise = req.files.map(file => File.create({
-     ...file,
-     recipe_id: recipeId
-   }))
+     ...file
+   })) //cada um retorna uma promessa e esse array de promessas passa para o promise.all
 
-   await Promise.all(filesPromise)
+   const filesPromiseResults = await Promise.all(filesPromise) //espera todas as promessas serem executadas.
 
-  return res.redirect(`/admin/recipes/${recipeId}`)
+   const filesIdPromise = filesPromiseResults.map(item => {
+    const fileId = item.rows[0].id
+
+    return RecipeFile.create({
+      file_id: fileId,
+      recipe_id: recipeId
+    })
+  })
+
+  const filesIdPromiseResult = await Promise.all(filesIdPromise)
+
+  console.log('filesIdPromise', filesIdPromise)
+
+   return res.redirect(`/admin/recipes/${recipeId}/edit`)
   },
   
   show(req, res) {
@@ -48,14 +61,21 @@ module.exports = {
     })
   },
   
-  edit(req, res) {
-    Recipe.find(req.params.id, (recipe) => {
-      if(!recipe) return res.send("Recipe not found")
+  async edit(req, res) {
+    const result = await Recipe.find(req.params.id)
+    //console.log('result', result)
+    const recipe = result.rows[0]
+    //console.log('recipe', recipe)
+    
+    if(!recipe) return res.send("Recipe not found")
       
-      Recipe.chefsSelectOptions( (chefs) => {
-        return res.render("admin/recipes/edit", {recipe, chefs})
-      })
-    })
+    //const chef = await Recipe.chefsSelectOptions( chefs ) 
+    
+    const files = await File.find( req.params.id )
+    console.log('files', files)
+    
+    return res.render("admin/recipes/edit", {recipe, files})
+
   },
   
   put(req, res) {

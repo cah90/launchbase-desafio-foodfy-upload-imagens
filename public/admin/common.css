@@ -151,23 +151,32 @@ a {
 }
 
 /* PHOTOS UPLOAD */
-form .item #photos-upload {
-  position: relative;
-  display: block;
-  overflow: hidden;
-  width: 200px;
+#photos {
+  display: flex;
+  margin-right: 15px;
+  align-items: center;
 }
 
-form .item #photos-upload p {
-  padding: 8px 16px;
+form .item #photos-upload {
+  position: relative; 
+  display: block;
+  overflow: hidden;
+  width: 150px;
+  height: 150px;
+  border: 1px solid #DDDDDD;
+  margin-right: 15px;
+}
+
+form .item #photos-upload i {
   border-radius: 4px;
-  box-shadow: 0 2px 2px -6px #333;
-  background-color: var(--color-purple);
-  color: white;
+  font-size: 40px;
+  color: #777777;
   width: 100%;
-  text-align: center;
-  text-transform: uppercase;
-  font-size: 0.9rem;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
 }
 
 form .item #photos-input {
@@ -184,14 +193,15 @@ form .item #photos-input {
 
 form .item #photos-preview {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(5, 1fr);
   grid-gap: 8px;
-  width: 100%;
+  width: 150px;
+  height: 150px;
   margin: 8px 0;
 }
 
 form .item #photos-preview img {
-  width: 100%;
+  width: 150px;
   height: 150px;
   object-fit: cover;
 }

@@ -1,25 +1,30 @@
 const db = require("../../config/db")
 
 module.exports = {
-  create(data, callback) {
+  create(data) {
     const query = `
     INSERT INTO files (
       name,
-      path,
-      recipe_id
-    ) VALUES ($1, $2, $3)
+      path
+    ) VALUES ($1, $2)
     RETURNING id
     `
     const values = [ 
       data.filename,
-      data.path,
-      data.recipe_id,
+      data.path
     ]
 
-    db.query(query, values, (err, results) => {
-      if(err) throw `Database Error! ${err}`
-      console.log(results.rows[0])
-      return callback(results.rows[0])
-    }) 
+    return db.query(query, values) 
   },
+
+  find(recipeId) {
+    const query = `
+      SELECT *
+      FROM recipe_files
+      INNER JOIN files ON recipe_files.file_id = files.id
+      WHERE recipe_files.recipe_id = $1
+    `
+    
+    return db.query(query, [recipeId])
+  }
 }

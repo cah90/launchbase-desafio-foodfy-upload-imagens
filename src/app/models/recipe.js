@@ -14,7 +14,7 @@ module.exports = {
      })
   },
 
-  create(data, callback) {
+  create(data) {
     const query = `
     INSERT INTO recipes (
       title,
@@ -39,18 +39,16 @@ module.exports = {
 
   },
 
-  find(id, callback) {
-    db.query(`
+  find(id) {
+   const query = `
     SELECT recipes.*, chefs.name 
     FROM recipes
     INNER JOIN chefs
     ON recipes.chef_id = chefs.id
     WHERE recipes.id=$1
-    `, [id], (err, results) => {
-      if(err) throw `Database Error! ${err}`
+    `
 
-      callback(results.rows[0])
-    })
+    return db.query(query, [id])
   },
 
   update(data, callback) {
