@@ -1,17 +1,20 @@
 const db = require("../../config/db")
+const fs = require("fs")
 
 module.exports = {
   create(data) {
     const query = `
     INSERT INTO files (
       name,
-      path
-    ) VALUES ($1, $2)
+      path,
+      src
+    ) VALUES ($1, $2, $3)
     RETURNING id
     `
     const values = [ 
       data.filename,
-      data.path
+      data.path,
+      data.src
     ]
 
     return db.query(query, values) 
@@ -26,5 +29,23 @@ module.exports = {
     `
     
     return db.query(query, [recipeId])
+  },
+
+  async delete(id) {
+
+    const result = await db.query(`
+    SELECT *
+    FROM files
+    WHERE id = $id
+    `, [id])
+
+    const file = result.rows[0]
+
+    fs.unlinkSync(file.path)
+
+    return db.query(`
+    DELETE FROM files 
+    WHERE id = $1
+    `, [id])
   }
-}
+} 

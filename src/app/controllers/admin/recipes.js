@@ -1,6 +1,7 @@
 const Recipe = require("../../models/recipe")
 const File = require("../../models/file")
 const RecipeFile = require("../../models/recipeFile")
+const Chef = require("../../models/chef")
 
 module.exports = {
   index(req, res) {
@@ -33,7 +34,8 @@ module.exports = {
    const recipeId = result.rows[0].id
 
    const filesPromise = req.files.map(file => File.create({
-     ...file
+     ...file,
+     src: `${req.protocol}://${req.headers.host}${file.path.replace("public", "")}`
    })) //cada um retorna uma promessa e esse array de promessas passa para o promise.all
 
    const filesPromiseResults = await Promise.all(filesPromise) //espera todas as promessas serem executadas.
@@ -69,16 +71,34 @@ module.exports = {
     
     if(!recipe) return res.send("Recipe not found")
       
-    //const chef = await Recipe.chefsSelectOptions( chefs ) 
+    const chefs = await Chef.all() 
+    console.log('chefs', chefs.rows)
     
-    const files = await File.find( req.params.id )
-    console.log('files', files)
+    const files = await File.find( req.params.id ) 
     
-    return res.render("admin/recipes/edit", {recipe, files})
+    return res.render("admin/recipes/edit", {recipe, files: files.rows, chefs: chefs.rows})
 
   },
   
-  put(req, res) {
+  async put(req, res) {
+    const keys = Object.keys(req.body)
+
+    for (key in keys) {
+      if (req.body[key] == "" && key != "removed_files") {
+        return res.send('Please, fill all fields')
+      }
+    }
+
+    if (req.bodu.removed_files) {
+      const removedFiles = req.body.removed_files.split(",") // [1,2,3,]
+      const lastIndex = removedFiles.length - 1
+      removedFiles.splice(lastIndex, 1) //[1,2,3]
+
+      const removedFilesPromise = removedFiles.map( file => File.delete(id))
+
+      await Promise.all(removedFilesPromise)
+    }
+
     Recipe.update(req.body, () => {
       return res.redirect(`/admin/recipes/${req.body.id}`)
     })
