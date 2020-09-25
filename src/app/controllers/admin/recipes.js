@@ -64,7 +64,7 @@ module.exports = {
   },
   
   async edit(req, res) {
-    const result = await Recipe.find(req.params.id)
+    const result = await Recipe.find(req.params.id) 
     //console.log('result', result)
     const recipe = result.rows[0]
     //console.log('recipe', recipe)
@@ -72,7 +72,7 @@ module.exports = {
     if(!recipe) return res.send("Recipe not found")
       
     const chefs = await Chef.all() 
-    console.log('chefs', chefs.rows)
+    //console.log('chefs', chefs.rows)
     
     const files = await File.find( req.params.id ) 
     
@@ -89,12 +89,12 @@ module.exports = {
       }
     }
 
-    if (req.bodu.removed_files) {
-      const removedFiles = req.body.removed_files.split(",") // [1,2,3,]
-      const lastIndex = removedFiles.length - 1
+    if (req.body.removed_files) {
+      const removedFiles = req.body.removed_files.split(",") // [1,2,3,] Transforma a string em um array
+      const lastIndex = removedFiles.length - 1 //We could have used .pop() on removedFiles.
       removedFiles.splice(lastIndex, 1) //[1,2,3]
 
-      const removedFilesPromise = removedFiles.map( file => File.delete(id))
+      const removedFilesPromise = removedFiles.map( file => File.delete(id)) //id aqui é file, que por sua vez é um item do array que contém ids.
 
       await Promise.all(removedFilesPromise)
     }

@@ -33,15 +33,20 @@ module.exports = {
 
   async delete(id) {
 
-    const result = await db.query(`
-    SELECT *
-    FROM files
-    WHERE id = $id
-    `, [id])
+    try {
+      const result = await db.query(`
+      SELECT *
+      FROM files
+      WHERE id = $1
+      `, [id])
 
-    const file = result.rows[0]
+      const file = result.rows[0]
 
-    fs.unlinkSync(file.path)
+      fs.unlinkSync(file.path) //remove a file from filesystem. It does not work on directories.
+
+    } catch(err) {
+        console.log(err)
+    }
 
     return db.query(`
     DELETE FROM files 
