@@ -40,6 +40,9 @@ module.exports = {
   },
 
   find(id) {
+
+    console.log('i am the id on recipe.find', id)
+
    const query = `
     SELECT recipes.*, chefs.name 
     FROM recipes
@@ -51,7 +54,10 @@ module.exports = {
     return db.query(query, [id])
   },
 
-  update(data, callback) {
+  update(data) {
+
+    console.log('im the recipe.update', data)
+
     const query = `
       UPDATE recipes SET
         title=($1),
@@ -70,11 +76,7 @@ module.exports = {
       data.id
     ]   
     
-    db.query(query, values, (err, results) => {
-      if(err) throw `Database Error! ${err}`
-
-      callback()
-    })
+    return db.query(query, values)
   },
 
   delete(id, callback) {
