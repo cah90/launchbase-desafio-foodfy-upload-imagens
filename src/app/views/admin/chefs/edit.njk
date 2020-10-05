@@ -12,7 +12,7 @@
   <input type="hidden" name="id" value={{ chef.id }}>
 </form>
 
-<form action="/admin/chefs?_method=PUT" method="POST">
+<form action="/admin/chefs?_method=PUT" method="POST" enctype="multipart/form-data">
   <button type="submit" class="btn btn-save">Salvar chef</button>
   <input type="hidden" name="id" value={{ chef.id }}>
 
@@ -25,7 +25,13 @@
 
 <div class="item">
 <h4>Avatar</h4>
-<input type="url" name="avatar_url" value="{{chef.avatar_url}}">
+<input type="text" value="{{ chef.src }}" readonly>
+<input 
+  id="photo-input"
+  type="file"
+  name="avatar"
+  accept="image/*" 
+  >
 </div>
 
 </form>

@@ -7,7 +7,7 @@
 
 {% block content %}
 
-<form action="/admin/chefs" method="POST">
+<form action="/admin/chefs" method="POST" enctype="multipart/form-data">
 
 <h3>Criando chef</h3>
 
@@ -17,11 +17,16 @@
 <h4>Nome</h4>
 <input type="text" name="name">
 </div>
-
+ 
 <div class="item">
 <h4>Avatar</h4>
-<input type="text" name="avatar_url" placeholder="http://">
-</div>
+<input 
+  id="photo-input"
+  type="file" 
+  name="avatar"
+  accept="image/*" 
+  >
+</div> 
 
 </form>
 {% endblock %}

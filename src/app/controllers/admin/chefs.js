@@ -1,4 +1,5 @@
 const Chef = require('../../models/chef')
+const File = require('../../models/file')
 
 module.exports = {
   index(req, res) {
@@ -11,7 +12,7 @@ module.exports = {
     return res.render("admin/chefs/create")
   }, 
 
-  post(req, res) {
+  async post(req, res) {
     const keys = Object.keys(req.body)
 
     for(key of keys) {
@@ -20,26 +21,40 @@ module.exports = {
       }
     }
 
-    Chef.create(req.body, (chef) => {
-      return res.redirect(`/admin/chefs/${chef.id}`)
-    })
+    const image = req.files[0]
+
+    image.src = `${req.protocol}://${req.headers.host}${image.path.replace("public", "")}`
+
+    const imageFile = await File.create(image)  
+    const imageId = imageFile.rows[0].id
+
+    const chefData = {
+      ...req.body,
+      imageId
+    }
+
+    const chef = await Chef.create(chefData)
+    console.log(chef.rows[0].id)
+
+    return res.redirect(`/admin/chefs/${chef.rows[0].id}`)
   },
 
   show(req, res) {
-    Chef.find(req.params.id, ({chef, recipes}) => {
+    Chef.show(req.params.id, ({chef, recipes}) => {
       if(!chef) return res.status(404).send("Chef not found")
       return res.render("admin/chefs/show", {chef, recipes})
     })
   },
 
-  edit(req, res) {
-    Chef.find(req.params.id, ({chef}) => {
-      if(!chef) return res.status(404).send("Chef not found")
-      return res.render("admin/chefs/edit", {chef})
-    })  
+  async edit(req, res) {
+
+    const chef = await Chef.find(req.params.id)  
+    console.log('chef', chef)
+
+    return res.render("admin/chefs/edit", {chef: chef.rows[0]})
   },
 
-  put(req,res) {
+  async put(req,res) {
     const keys = Object.keys(req.body)
   
     for(key of keys) {
@@ -47,9 +62,19 @@ module.exports = {
         return res.send('Please, fill all the form.')
     }
 
-    Chef.update(req.body, function() {
-      return res.redirect(`/admin/chefs/${req.body.id}`)
-    }) 
+    const chefResults = await Chef.find(req.body.id)
+    const currentChef = chefResults.rows[0]
+
+    const image = req.files[0] 
+
+    image.src = `${req.protocol}://${req.headers.host}${image.path.replace("public", "")}`
+    image.id = currentChef.file_id
+
+    const imageFile = await File.update(image)
+
+    const chef = await Chef.update(req.body)
+
+    return res.redirect(`/admin/chefs/${req.body.id}`)
   },
 
   delete(req, res) {

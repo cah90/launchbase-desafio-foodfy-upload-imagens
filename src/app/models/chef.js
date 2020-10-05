@@ -11,67 +11,63 @@ module.exports = {
     return db.query(query)
  },
 
- create(data, callback) { 
+ create(data) { 
   const query = `
   INSERT INTO chefs (
-    avatar_url,
     name,
-    created_at
+    created_at,
+    file_id
   ) VALUES ($1, $2, $3)
   RETURNING id
   `
   const values = [
-    data.avatar_url,
     data.name,
-    date(Date.now()).iso
+    date(Date.now()).iso,
+    data.imageId
   ]
 
-  db.query(query, values, (err, results) => {
-    if(err) throw `Database Error! ${err}`
-    callback(results.rows[0])
-  }) 
+  return db.query(query, values) 
 },
 
- find(id, callback) {
- let chef, recipes
-  db.query(`
-    SELECT *
-    FROM chefs
+ find(id) {
+  return db.query(`
+    SELECT chefs.name as name, chefs.id as id, files.src as src, files.id as file_id
+    FROM chefs 
+    INNER JOIN files ON files.id = chefs.file_id
     WHERE chefs.id = $1
-  `, [id], (err, results) => {
-    if(err) throw `Database Error! ${err}`
-    chef = results.rows[0]
+  `, [id])
 
-  db.query(`
-    SELECT *
-    FROM recipes
-    WHERE recipes.chef_id = $1
-  `, [id], (err, results) => {
-    if(err) throw `Database Error! ${err}`
-    recipes = results.rows
+}, 
 
-    callback({chef, recipes})
-    })
-  }) 
- }, 
+ show(id) {
 
- update(data, callback) {
+  const chef = db.query(`
+  SELECT *
+  FROM chefs
+  WHERE chefs.id = $1
+`, [id])
+
+const recipes = db.query(`
+  SELECT *
+  FROM recipes
+  WHERE recipes.chef_id = $1
+`, [id])
+
+  return {chef, recipes} 
+ },
+
+ update(data) {
    const query = `
    UPDATE chefs SET
-    avatar_url=($1),
-    name=($2)
-   WHERE id=$3 
+    name=$1
+    WHERE id=$2
    `
    const values = [
-     data.avatar_url,
      data.name,
      data.id
    ]
 
-   db.query(query, values, function(err, results) {
-     if(err) throw `Database Error. ${err}`
-     callback()
-   })
+   return db.query(query, values)
  },
 
  check(id, callback) {

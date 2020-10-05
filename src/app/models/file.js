@@ -31,6 +31,24 @@ module.exports = {
     return db.query(query, [recipeId])
   },
 
+  update(data) {
+    const query = `
+    UPDATE files SET 
+    name=$1,
+    path=$2,
+    src=$3
+    WHERE id=$4
+   `
+   const values = [
+     data.filename,
+     data.path,
+     data.src,
+     data.id
+   ]
+
+   return db.query(query, values)
+  },
+
   async delete(id) {
 
     try {
