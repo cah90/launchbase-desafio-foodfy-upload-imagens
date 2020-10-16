@@ -8,10 +8,10 @@
 
 {% block content %}
 
-<h3>Chef: {{chef.name}}</h3>
-<a href="/admin/chefs/{{chef.id}}/edit" class="btn btn-edit">Editar chef</a>
-<div class="avatar" style="background-image: url({{chef.avatar_url}})"></div>
-<h1>{{chef.name}}</h1>
+<h3>Chef: {{photoChef.chefname}}</h3>
+<a href="/admin/chefs/{{photoChef.id}}/edit" class="btn btn-edit">Editar chef</a>
+<div class="avatar" style="background-image: url({{photoChef.src}})"></div>
+<h1>{{photoChef.chefname}}</h1>
 <h3 class="recipes-sub"> {{ recipes.length }} {{ "receita" if recipes.length == 1 else "receitas" }} </h3>
 
 <h2>Receitas</h2>
@@ -19,10 +19,10 @@
 <div class="wrapper-cards">
 {% for recipe in recipes %}
 <div class="cards">
-<img class="card-avatar" src="{{recipe.image}}">
+<img class="card-avatar" src="{{recipe.src}}">
 <div class="card-info">
 <p class="card-main-title">{{recipe.title}}</p>
-<p class="card-author">por {{chef.name}}</p>
+<p class="card-author">por {{photoChef.chefname}}</p>
 <a href="/admin/recipes/{{recipe.id}}">Visualizar</a>
 </div>
 </div>

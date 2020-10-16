@@ -2,10 +2,9 @@ const Chef = require('../../models/chef')
 const File = require('../../models/file')
 
 module.exports = {
-  index(req, res) {
-    Chef.all( (chefs) => {
-      return res.render("admin/chefs/index", {chefs}) 
-    })
+  async index(req, res) {
+    const chefs = await Chef.all()
+    return res.render("admin/chefs/index", {chefs}) 
   },
 
   create(req,res) {
@@ -39,14 +38,15 @@ module.exports = {
     return res.redirect(`/admin/chefs/${chef.rows[0].id}`)
   },
 
-  show(req, res) {
-    Chef.show(req.params.id, ({chef, recipes}) => {
-      if(!chef) return res.status(404).send("Chef not found")
-      return res.render("admin/chefs/show", {chef, recipes})
-    })
+  async show(req, res) {
+    const {photoChef, recipes} = await Chef.show(req.params.id)
+
+    if(!photoChef.rows[0]) return res.status(404).send("Chef not found")
+
+    return res.render("admin/chefs/show", {photoChef: photoChef.rows[0], recipes: recipes.rows})
   },
 
-  async edit(req, res) {
+  async edit(req, res) { 
 
     const chef = await Chef.find(req.params.id)  
     console.log('chef', chef)
@@ -77,16 +77,15 @@ module.exports = {
     return res.redirect(`/admin/chefs/${req.body.id}`)
   },
 
-  delete(req, res) {
-    Chef.check(req.body.id, function(recipes) {
-      console.log(recipes) 
-      if(recipes.length > 0) {
-        return res.send("This chef can't be deleted because it owns recipes")
-      } else {
-        Chef.delete(req.body.id, function() {
-          return res.redirect('/admin/chefs')
-        })
-      }
-    }) 
+  async delete(req, res) {
+    const hasRecipes = await Chef.hasRecipes(req.body.id) 
+
+    if(hasRecipes.length > 0) {
+      return res.send("This chef can't be deleted because it owns recipes")
+    } else { 
+      await Chef.delete(req.body.id)
+    }
+    return res.redirect('/admin/chefs')
   }
 }
+

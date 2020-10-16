@@ -4,10 +4,10 @@ const RecipeFile = require("../../models/recipeFile")
 const Chef = require("../../models/chef")
 
 module.exports = {
-  index(req, res) {
-    Recipe.all( (recipes) => {
-      return res.render("admin/recipes/index", {recipes}) 
-    })
+  async index(req, res) {
+    const recipes = Recipe.all()
+    
+    return res.render("admin/recipes/index", {recipes}) 
   },
 
   async create(req, res) { 

@@ -39,21 +39,32 @@ module.exports = {
 
 }, 
 
- show(id) {
-
-  const chef = db.query(`
-  SELECT *
+ async show(id) {
+  const photoChef = await db.query(`
+  SELECT 
+    chefs.id, 
+    chefs.name as chefname, 
+    files.name as filename, 
+    files.path, 
+    files.src
   FROM chefs
+  INNER JOIN files
+  ON files.id = chefs.file_id
   WHERE chefs.id = $1
-`, [id])
+  `, [id])
 
-const recipes = db.query(`
+  const recipes = await db.query(`
   SELECT *
   FROM recipes
+  INNER JOIN recipe_files
+  ON recipes.id = recipe_files.recipe_id
+  INNER JOIN files
+  ON recipe_files.file_id = files.id
   WHERE recipes.chef_id = $1
-`, [id])
+  `, [id])
 
-  return {chef, recipes} 
+  return {photoChef, recipes}
+
  },
 
  update(data) {
@@ -70,27 +81,19 @@ const recipes = db.query(`
    return db.query(query, values)
  },
 
- check(id, callback) {
-  db.query(`
+ hasRecipes(id) {
+  return db.query(`
     SELECT recipes
     FROM recipes
     WHERE chef_id=$1
-  `, [id], function(err, results) {
-    if(err) throw `Database Error. ${err}`
-
-    return callback(results.rows)
-  })
+  `, [id])
  },
 
- delete(id, callback) {
-   db.query(`
+ delete(id) {
+   return db.query(`
     DELETE 
     FROM chefs 
     WHERE id=$1
-   `, [id], function(err, results) {
-     if(err) throw `Database Error. ${err}`
-
-     return callback()
-   })
+   `, [id])
  }
 }
