@@ -25,13 +25,16 @@
 
 <div class="item">
 <h4>Avatar</h4>
-<input type="text" value="{{ chef.src }}" readonly>
-<input 
-  id="photo-input"
-  type="file"
-  name="avatar"
-  accept="image/*" 
-  >
+<input id="fixed-path" type="text" value="{{ chef.src }}" readonly>
+<div id='chef-photo-upload'>
+  <input 
+    id="chef-photo-input"
+    type="file" 
+    name="avatar"
+    accept="image/*" 
+    >
+  <div id="chef-photo-label">Enviar avatar</div>
+</div> 
 </div>
 
 </form>

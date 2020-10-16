@@ -268,3 +268,7 @@ form .item #chef-photo-input {
   opacity: 0;
   cursor: pointer;
 }
+
+#fixed-path {
+  color: #cbcbcb;
+}
