@@ -37,18 +37,13 @@ module.exports = {
   },
 
   find(id) {
-
-    console.log('i am the id on recipe.find', id)
-
-   const query = `
+    return db.query(`
     SELECT recipes.*, chefs.name 
     FROM recipes
     INNER JOIN chefs
     ON recipes.chef_id = chefs.id
     WHERE recipes.id=$1
-    `
-
-    return db.query(query, [id])
+    `, [id])
   },
 
   update(data) {
@@ -76,41 +71,31 @@ module.exports = {
     return db.query(query, values)
   },
 
-  delete(id, callback) {
-    db.query(`
+  delete(id) {
+    return db.query(`
     DELETE FROM recipes
     WHERE id=$1
-    `, [id], (err, results) => {
-      if(err) throw `Database Error! ${err}`
-
-      return callback()
-    })
+    `, [id])
   },
 
-  showChefs(callback) {
-    db.query(`
+  showChefs() {
+    return db.query(`
     SELECT chefs.*, count(recipes) as total_recipes
     FROM recipes
     LEFT JOIN chefs 
     ON recipes.chef_id = chefs.id
     GROUP BY chefs.id
-    `, (err, results) => {
-      if(err) throw `Database Error! ${err}`
-      callback(results.rows)
-    })
+    `)
   },
 
-  results(filter, callback) {
+  results(filter) {
     const values = [`%${filter}%`]
-    db.query(`
+    return db.query(`
     SELECT r.title, r.image, r.id, c.name
     FROM recipes r
     LEFT JOIN chefs c
     ON c.id = r.chef_id
     WHERE r.title ILIKE $1 
-    `, values, function( err, results ) {
-      if(err) throw `Database Error! ${err}`
-      return callback(results.rows)
-    })
+    `, values)
   }
 } 
