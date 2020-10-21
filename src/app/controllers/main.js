@@ -2,9 +2,21 @@ const Recipe = require("../models/recipe")
 
 module.exports = {
   async index(req, res) {
-    const recipes = await Recipe.all()
+    let recipes = await Recipe.all()
+    recipes = recipes.rows
 
-    return res.render("main/index", {recipes: recipes.slice(0,6)}) 
+    let filteredRows = []
+    let usedRecipeIds = []
+
+    for(recipe of recipes) {
+      if(!usedRecipeIds.includes(recipe['recipe_id'])) {
+
+        filteredRows.push(recipe)
+        usedRecipeIds.push(recipe['recipe_id'])
+      }
+    }
+    
+    return res.render("main/index", {recipes: filteredRows.slice(0,6)}) 
   },
   
   about(req, res) {

@@ -4,10 +4,23 @@ const {date} = require("../lib/utils")
 module.exports = {
   all() {
      return db.query (`
-     SELECT recipes.*, chefs.name
+     SELECT 
+      recipes.id as recipe_id,
+      recipes.title as recipe_title,
+      recipes.ingredients as recipe_ingredients,
+      recipes.preparation as recipe_preparation,
+      recipes.information as recipe_information,
+      files.id as file_id,
+      files.path as file_path,
+      files.src as file_src, 
+      chefs.name as chef_name
      FROM recipes
      INNER JOIN chefs
      ON recipes.chef_id = chefs.id
+     INNER JOIN recipe_files
+     ON recipes.id = recipe_files.recipe_id
+     INNER JOIN files
+     ON recipe_files.file_id = files.id
      `)
   },
 
