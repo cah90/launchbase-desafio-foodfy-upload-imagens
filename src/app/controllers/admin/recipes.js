@@ -56,28 +56,23 @@ module.exports = {
    return res.redirect(`/admin/recipes/${recipeId}/edit`)
   },
   
-  async show(req, res) {
+  async show(req, res) { 
     const recipe = await Recipe.find(req.params.id)
-
     if(!recipe) return res.send("Recipe not found")
 
-    return res.render("admin/recipes/show", {recipe})
+    return res.render("admin/recipes/show", {recipe: recipe.rows[0]})
   },
   
   async edit(req, res) {
-    const result = await Recipe.find(req.params.id) 
-    //console.log('result', result)
-    const recipe = result.rows[0]
-    //console.log('recipe', recipe)
+    const recipe = await Recipe.recipe(req.params.id) 
     
     if(!recipe) return res.send("Recipe not found")
       
     const chefs = await Chef.all() 
-    //console.log('chefs', chefs.rows)
     
     const files = await File.find( req.params.id ) 
     
-    return res.render("admin/recipes/edit", {recipe, files: files.rows, chefs: chefs.rows})
+    return res.render("admin/recipes/edit", {recipe: recipe.rows[0], files: files.rows, chefs: chefs.rows})
 
   },
   
@@ -118,7 +113,7 @@ module.exports = {
 
     const updatedRecipe = await Recipe.update(req.body)
 
-    return res.redirect(`/admin/recipes/${req.body.id}/edit`)
+    return res.redirect(`/admin/recipes/${req.body.id}`)
   },
   
   async delete(req, res) {

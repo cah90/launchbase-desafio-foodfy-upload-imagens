@@ -40,7 +40,7 @@ module.exports = {
 
     if(!recipe) return res.status(400).send("Recipe not found")
 
-    return res.render("main/recipe", {recipe})
+    return res.render("main/recipe", {recipe: recipe.rows[0]})
   },
 
   async results(req, res) {
@@ -51,5 +51,5 @@ module.exports = {
     return res.render("main/results", { recipes, filter })
   }
 }
-
+ 
  

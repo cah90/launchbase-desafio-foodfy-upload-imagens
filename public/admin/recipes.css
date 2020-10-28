@@ -1,9 +1,12 @@
 /* SHOW */
-.avatar {
-  height: 280px; 
+.avatar img {
   border-radius: 15px;
+  display: block;
+  margin: 0 auto;
+  
+  /* height: 280px; 
   background-repeat: no-repeat;
-  background-position: center;
+  background-position: center; */
 }
 
 .wrapper h1 {

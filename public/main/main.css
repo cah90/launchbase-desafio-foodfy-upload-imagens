@@ -80,6 +80,12 @@ ul {
   line-height: 40px;
 }
 
+.recipe-header img {
+  display: block;
+  margin: 0 auto;
+  border-radius: 15px;
+}
+
 .recipe-header h1, .recipe-header h2 {
   text-align: center;
 }
