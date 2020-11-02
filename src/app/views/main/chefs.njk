@@ -10,13 +10,13 @@
 <div class="wrapper-chefs">
 {% for chef in chefs %}
   <div class="chefs">
-  <img class="card-chef-avatar" src="{{chef.avatar_url}}">
+  <img class="card-chef-avatar" src="{{chef.file_src}}">
   <div class="card-info">
-  <p class="card-name">{{chef.name}}</p>
+  <p class="card-name">{{chef.chef_name}}</p>
   <h3 class="total-recipes"> {{chef.total_recipes}} {{ "receita" if chef.total_recipes == 1 else "receitas" }} </h3>
   </div>
   </div>
-{% endfor %} 
+{% endfor %}  
 </div>
 
 {% endblock %}

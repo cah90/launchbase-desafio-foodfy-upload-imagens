@@ -12,7 +12,7 @@ routes.get("/about", main.about)
 routes.get("/chefs", main.chefs)
 routes.get("/recipes", main.recipes)
 routes.get("/recipes/:id", main.recipe)
-routes.get("/results", main.results)  
+routes.get("/results", main.results)   
 
 // ADMINISTRATIVE AREA
 //RECIPES

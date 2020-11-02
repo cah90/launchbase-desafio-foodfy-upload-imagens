@@ -26,7 +26,7 @@ module.exports = {
   async chefs(req, res) {
     const chefs = await Recipe.showChefs()
 
-    return res.render("main/chefs", {chefs})
+    return res.render("main/chefs", {chefs: chefs.rows}) 
   },
   
   async recipes(req, res) {

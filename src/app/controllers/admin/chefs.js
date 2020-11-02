@@ -4,7 +4,7 @@ const File = require('../../models/file')
 module.exports = {
   async index(req, res) {
     const chefs = await Chef.all()
-    return res.render("admin/chefs/index", {chefs}) 
+    return res.render("admin/chefs/index", {chefs})  
   },
 
   create(req,res) {
