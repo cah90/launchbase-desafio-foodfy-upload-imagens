@@ -13,7 +13,7 @@ module.exports = {
   async create(req, res) { 
    const chefs = await Chef.all()
 
-   return res.render("admin/recipes/create", {chefs: chefs.rows})
+   return res.render("admin/recipes/create", {chefs: chefs.rows}) 
   },
   
   async post(req, res) {

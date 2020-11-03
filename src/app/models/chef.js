@@ -16,7 +16,7 @@ module.exports = {
     LEFT JOIN recipes ON chefs.id = recipes.chef_id 
     GROUP BY chefs.id, files.name, files.path, files.src`
         
-    return db.query(query)
+    return db.query(query) 
  },
 
  create(data) { 
@@ -50,11 +50,11 @@ module.exports = {
  async show(id) {
   const photoChef = await db.query(`
   SELECT 
-    chefs.id, 
-    chefs.name as chefname, 
-    files.name as filename, 
-    files.path, 
-    files.src
+    chefs.id AS chef_id, 
+    chefs.name AS chef_name, 
+    files.name AS file_name, 
+    files.path AS file_path, 
+    files.src AS file_src
   FROM chefs
   INNER JOIN files
   ON files.id = chefs.file_id
@@ -62,7 +62,11 @@ module.exports = {
   `, [id])
 
   const recipes = await db.query(`
-  SELECT *
+  SELECT 
+    recipes.id AS recipe_id,
+    recipes.title AS recipe_title,
+    files.name AS recipe_name,
+    files.src AS recipe_src
   FROM recipes
   INNER JOIN recipe_files
   ON recipes.id = recipe_files.recipe_id

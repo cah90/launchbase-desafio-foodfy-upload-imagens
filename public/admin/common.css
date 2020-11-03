@@ -49,6 +49,7 @@ header .links a {
   height: 300px;
   width: 100%;
   line-height: 32px;
+  font-family: 'Roboto', sans-serif;
 }
 
 .wrapper input::placeholder {
@@ -77,6 +78,7 @@ a {
   text-decoration: none;
   cursor: pointer;
   outline: none;
+  background-color: initial;
 }
 
 .btn {

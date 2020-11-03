@@ -40,8 +40,8 @@
   <select type="select" name="chef">
   <option value="" disabled selected>Selecione um chef</option>
   {% for chef in chefs %}
-  <option value="{{chef.id}}">
-  {{chef.name}}
+  <option value="{{chef.chef_id}}">
+  {{chef.chef_name}}
   </option>
   {% endfor %}
   </select>

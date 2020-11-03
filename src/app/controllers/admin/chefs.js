@@ -39,7 +39,7 @@ module.exports = {
   },
 
   async show(req, res) {
-    const {photoChef, recipes} = await Chef.show(req.params.id)
+    const {photoChef, recipes} = await Chef.show(req.params.id) 
 
     if(!photoChef.rows[0]) return res.status(404).send("Chef not found")
 

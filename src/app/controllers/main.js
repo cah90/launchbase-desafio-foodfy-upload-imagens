@@ -14,9 +14,9 @@ module.exports = {
         filteredRows.push(recipe)
         usedRecipeIds.push(recipe['recipe_id'])
       }
-    }
+    } 
     
-    return res.render("main/index", {recipes: filteredRows.slice(0,6)}) 
+  return res.render("main/index", {recipes: filteredRows.slice(0,6)}) 
   },
   
   about(req, res) {
