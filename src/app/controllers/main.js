@@ -1,12 +1,12 @@
 const Recipe = require("../models/recipe")
-const {filteredRecipes} = require("../lib/utils")
+const {removeDuplicateRecipes} = require("../lib/utils")
 
 module.exports = {
   async index(req, res) {
     let recipes = await Recipe.all()
     recipes = recipes.rows
 
-    const filteredRows = filteredRecipes(recipes)
+    const filteredRows = removeDuplicateRecipes(recipes)
     
     return res.render("main/index", {recipes: filteredRows.slice(0,6)}) 
   },
@@ -22,9 +22,12 @@ module.exports = {
   },
   
   async recipes(req, res) {
-    const recipes = await Recipe.all()
+    let recipes = await Recipe.all()
+    recipes = recipes.rows
 
-    return res.render("main/recipes", { recipes: recipes.rows }) 
+    const filteredRows = removeDuplicateRecipes(recipes)
+
+    return res.render("main/recipes", { recipes: filteredRows }) 
   }, 
   
   async recipe(req, res) {

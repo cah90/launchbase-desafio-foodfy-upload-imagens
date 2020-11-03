@@ -13,7 +13,7 @@ module.exports = {
       }
     },
 
-      filteredRecipes(recipes) {
+      removeDuplicateRecipes(recipes) {
 
         let filteredRows = []
         let usedRecipeIds = []

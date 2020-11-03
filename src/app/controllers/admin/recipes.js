@@ -2,12 +2,16 @@ const Recipe = require("../../models/recipe")
 const File = require("../../models/file")
 const RecipeFile = require("../../models/recipeFile")
 const Chef = require("../../models/chef")
+const {removeDuplicateRecipes} = require("../../lib/utils")
 
 module.exports = {
   async index(req, res) {
-    const recipes = await Recipe.all()
+    let recipes = await Recipe.all()
+    recipes = recipes.rows
 
-    return res.render("admin/recipes/index", {recipes: recipes.rows})  
+    const filteredRows = removeDuplicateRecipes(recipes)
+
+    return res.render("admin/recipes/index", {recipes: filteredRows})  
   },
 
   async create(req, res) { 
@@ -63,7 +67,7 @@ module.exports = {
     return res.render("admin/recipes/show", {recipe: recipe.rows[0]})
   },
   
-  async edit(req, res) {
+  async edit(req, res) { 
     const recipe = await Recipe.recipe(req.params.id) 
     
     if(!recipe) return res.send("Recipe not found")

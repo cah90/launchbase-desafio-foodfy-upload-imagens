@@ -1,5 +1,7 @@
 const Chef = require('../../models/chef')
 const File = require('../../models/file')
+const {removeDuplicateRecipes} = require("../../lib/utils")
+
 
 module.exports = {
   async index(req, res) {
@@ -39,11 +41,15 @@ module.exports = {
   },
 
   async show(req, res) {
-    const {photoChef, recipes} = await Chef.show(req.params.id) 
+    let {photoChef, recipes} = await Chef.show(req.params.id) 
+    recipes = recipes.rows
+
+    const filteredRows = removeDuplicateRecipes(recipes)
+
 
     if(!photoChef.rows[0]) return res.status(404).send("Chef not found")
 
-    return res.render("admin/chefs/show", {photoChef: photoChef.rows[0], recipes: recipes.rows})
+    return res.render("admin/chefs/show", {photoChef: photoChef.rows[0], recipes: filteredRows})
   },
 
   async edit(req, res) { 
