@@ -8,13 +8,13 @@
 {% block content %}
 <h3>Gerenciar chefs</h3>
 
-<div class="wrapper-chefs">
+<div class="wrapper-chefs"> 
 {% for chef in chefs %}
   <div class="chefs">
-  <img class="card-chef-avatar" src="{{chef.avatar_url}}">
+  <img class="card-chef-avatar" src="{{chef.file_src}}">
   <div class="card-info">
-  <p class="card-name">{{chef.name}}</p>
-  <a href="/admin/chefs/{{chef.id}}">Visualizar</a>
+  <p class="card-name">{{chef.chef_name}}</p>
+  <a href="/admin/chefs/{{chef.chef_id}}">Visualizar</a>
   </div> 
   </div>
 {% endfor %} 

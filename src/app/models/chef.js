@@ -4,10 +4,18 @@ const {date} = require("../lib/utils")
 module.exports = {
  all() {
     const query = `
-    SELECT * 
+    SELECT 
+    chefs.id AS chef_id,
+    chefs.name AS chef_name,
+    files.name AS file_name,
+    files.path AS file_path,
+    files.src AS file_src,
+    count(recipes.id) AS total_recipes
     FROM chefs
-    ORDER BY name ASC`
-    
+    LEFT JOIN files ON chefs.file_id = files.id
+    LEFT JOIN recipes ON chefs.id = recipes.chef_id 
+    GROUP BY chefs.id, files.name, files.path, files.src`
+        
     return db.query(query)
  },
 
