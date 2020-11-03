@@ -21,8 +21,8 @@ module.exports = {
      ON recipes.id = recipe_files.recipe_id
      INNER JOIN files
      ON recipe_files.file_id = files.id
-     `)
-  },
+     `) 
+  }, 
 
   create(data) {
     const query = `

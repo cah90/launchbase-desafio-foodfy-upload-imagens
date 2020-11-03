@@ -11,11 +11,11 @@
 <div class="wrapper-cards">
 {% for recipe in recipes %}
 <div class="cards">
-<img class="card-avatar" src="{{recipe.image}}">
+<img class="card-avatar" src="{{recipe.file_src}}">
 <div class="card-info">
-<p class="card-main-title">{{recipe.title}}</p>
-<p class="card-author">por {{recipe.name}}</p>
-<a href="/admin/recipes/{{recipe.id}}">Visualizar</a>
+<p class="card-main-title">{{recipe.recipe_title}}</p>
+<p class="card-author">por {{recipe.chef_name}}</p>
+<a href="/admin/recipes/{{recipe.recipe_id}}">Visualizar</a>
 </div>
 </div>
 {% endfor %} 

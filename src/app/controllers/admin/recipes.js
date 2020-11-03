@@ -7,7 +7,7 @@ module.exports = {
   async index(req, res) {
     const recipes = await Recipe.all()
 
-    return res.render("admin/recipes/index", {recipes}) 
+    return res.render("admin/recipes/index", {recipes: recipes.rows})  
   },
 
   async create(req, res) { 

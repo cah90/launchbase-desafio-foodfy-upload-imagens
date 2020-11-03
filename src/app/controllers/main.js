@@ -32,7 +32,7 @@ module.exports = {
   async recipes(req, res) {
     const recipes = await Recipe.all()
 
-    return res.render("main/recipes", { recipes })
+    return res.render("main/recipes", { recipes: recipes.rows }) 
   }, 
   
   async recipe(req, res) {
