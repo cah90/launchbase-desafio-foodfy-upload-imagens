@@ -46,7 +46,6 @@ module.exports = {
 
     const filteredRows = removeDuplicateRecipes(recipes)
 
-
     if(!photoChef.rows[0]) return res.status(404).send("Chef not found")
 
     return res.render("admin/chefs/show", {photoChef: photoChef.rows[0], recipes: filteredRows})
@@ -55,10 +54,9 @@ module.exports = {
   async edit(req, res) { 
 
     const chef = await Chef.find(req.params.id)  
-    console.log('chef', chef)
 
     return res.render("admin/chefs/edit", {chef: chef.rows[0]})
-  },
+  }, 
 
   async put(req,res) {
     const keys = Object.keys(req.body)

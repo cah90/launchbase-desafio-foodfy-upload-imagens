@@ -1,7 +1,7 @@
 {% extends "admin/common/layout.njk" %}
 
 {% block head %}
-  <title>Edite {{recipe.chef_name}}</title>
+  <title>Edite {{chef.chef_name}}</title>
   <link rel="stylesheet" href="/admin/recipes.css">
 {% endblock %}
 
@@ -9,23 +9,23 @@
 
 <form id="form-delete" action="/admin/chefs?_method=DELETE" method="POST">
   <button class="btn btn-delete" type="submit">Deletar</button>
-  <input type="hidden" name="id" value={{ recipe.chef_id }}>
+  <input type="hidden" name="id" value={{ chef.chef_id }}>
 </form>
 
 <form action="/admin/chefs?_method=PUT" method="POST" enctype="multipart/form-data">
   <button type="submit" class="btn btn-save">Salvar chef</button>
-  <input type="hidden" name="id" value={{ chef.id }}>
+  <input type="hidden" name="id" value={{ chef.chef_id }}>
 
 <h3>Editando Chef</h3>
 
-<div class="item">
+<div class="item"> 
 <h4>Nome</h4>
-<input type="text" name="name" value="{{recipe.chef_name}}">
+<input type="text" name="name" value="{{chef.chef_name}}">
 </div>
 
 <div class="item">
 <h4>Avatar</h4>
-<input id="fixed-path" type="text" value="{{ recipe.file_src }}" readonly>
+<input id="fixed-path" type="text" value="{{ chef.file_src }}" readonly>
 <div id='chef-photo-upload'>
   <input 
     id="chef-photo-input"

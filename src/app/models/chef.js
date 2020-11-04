@@ -39,7 +39,11 @@ module.exports = {
 
  find(id) {
   return db.query(`
-    SELECT chefs.name as name, chefs.id as id, files.src as src, files.id as file_id
+    SELECT 
+      chefs.name AS chef_name, 
+      chefs.id AS chef_id, 
+      files.src AS file_src, 
+      files.id AS file_id
     FROM chefs 
     INNER JOIN files ON files.id = chefs.file_id
     WHERE chefs.id = $1
