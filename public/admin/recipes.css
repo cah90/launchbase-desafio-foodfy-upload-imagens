@@ -13,7 +13,6 @@
 }
 
 .wrapper .thumbnail {
-  border: 2px solid red;
   display: flex;
   justify-content: flex-end;
 }
@@ -22,8 +21,12 @@
   width: 60px;
   height: 60px;
   border-radius: 4px;
+  border: 1px solid #DDDDDD;
   object-fit: cover;
   margin-right: 5px;
+  cursor: pointer;
+  opacity: 0.5;
+
 }
 
 .wrapper .thumbnail img:last-child {
