@@ -84,6 +84,9 @@ ul {
   display: block;
   margin: 0 auto;
   border-radius: 15px;
+  width: 100%;
+  height: 280px;
+  object-fit: cover;
 }
 
 .recipe-header h1, .recipe-header h2 {
