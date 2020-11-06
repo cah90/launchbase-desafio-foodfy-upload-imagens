@@ -129,11 +129,17 @@ module.exports = {
   results(filter) {
     const values = [`%${filter}%`]
     return db.query(`
-    SELECT r.title, r.image, r.id, c.name
-    FROM recipes r
-    LEFT JOIN chefs c
-    ON c.id = r.chef_id
-    WHERE r.title ILIKE $1 
-    `, values)
+    SELECT 
+      recipes.title AS recipe_title,
+      recipes.id AS recipe_id,
+      chefs.name AS chef_name,
+      files.name AS file_name,
+      files.src AS file_src
+    FROM recipes
+    INNER JOIN chefs ON recipes.chef_id = chefs.id
+    INNER JOIN recipe_files ON recipe_files.recipe_id = recipes.id
+    INNER JOIN files ON recipe_files.file_id = files.id
+    WHERE recipes.title ILIKE $1 
+    `, values) 
   }
 } 

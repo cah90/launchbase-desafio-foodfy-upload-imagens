@@ -39,11 +39,14 @@ module.exports = {
   },
 
   async results(req, res) {
-    const recipes = await Recipe.results(req.query.filter)
+    let recipes = await Recipe.results(req.query.filter)
+    recipes = recipes.rows
 
     const filter = req.query.filter
 
-    return res.render("main/results", { recipes, filter })
+    const filteredRows = removeDuplicateRecipes(recipes)
+
+    return res.render("main/results", { recipes: filteredRows, filter }) 
   }
 }
  

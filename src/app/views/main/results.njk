@@ -17,14 +17,14 @@
 
 <section class="cards">
   {% for recipe in recipes %}
-  <div class="card" id="{{recipe.name}}">
+  <div class="card" id="{{recipe.recipe_title}}">
       <div class="card__image-container">
-        <a href="/recipes/{{recipe.id}}"><img src="{{recipe.image}}" alt="{{recipe.title}}"></a>
+        <a href="/recipes/{{recipe.recipe_id}}"><img src="{{recipe.file_src}}" alt="{{recipe.recipe_title}}"></a>
     </div>
 
     <div class="card__recipe">
-      <p class="card__recipe-name">{{recipe.title}}</p>
-      <p class="card__author">por {{recipe.name}}</p>
+      <p class="card__recipe-name">{{recipe.recipe_title}}</p>
+      <p class="card__author">por {{recipe.recipe_title}}</p>
     </div>
   </div>
   {% endfor %}
