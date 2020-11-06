@@ -3,11 +3,18 @@ const {removeDuplicateRecipes} = require("../lib/utils")
 
 module.exports = {
   async index(req, res) {
-    let recipes = await Recipe.all()
+    let recipes;
+
+    try {
+      recipes = await Recipe.all()
+    } catch (err) {
+      console.log(err.message)
+    }
+    
     recipes = recipes.rows
 
     const filteredRows = removeDuplicateRecipes(recipes)
-    
+
     return res.render("main/index", {recipes: filteredRows.slice(0,6)}) 
   },
   
@@ -16,13 +23,26 @@ module.exports = {
   },
 
   async chefs(req, res) {
-    const chefs = await Recipe.showChefs()
+    let chefs;
 
+    try {
+      chefs = await Recipe.showChefs() 
+    } catch (err) {
+      console.log(err.message)
+    }
+    
     return res.render("main/chefs", {chefs: chefs.rows}) 
   },
   
   async recipes(req, res) {
-    let recipes = await Recipe.all()
+    let recipes; 
+
+    try {
+      recipes = await Recipe.all()
+    } catch(err) {
+      console.log(err.message)
+    }
+
     recipes = recipes.rows
 
     const filteredRows = removeDuplicateRecipes(recipes)
@@ -31,7 +51,13 @@ module.exports = {
   }, 
   
   async recipe(req, res) {
-    const recipe = await Recipe.find(req.params.id)
+    let recipe;
+
+    try {
+      recipe = await Recipe.find(req.params.id)
+    } catch (err) {
+      console.log(err.message)
+    }
 
     if(!recipe) return res.status(400).send("Recipe not found")
 
@@ -39,7 +65,13 @@ module.exports = {
   },
 
   async results(req, res) {
-    let recipes = await Recipe.results(req.query.filter)
+    let recipes;
+    try {
+      recipes = await Recipe.results(req.query.filter)
+    } catch(err) {
+      console.log(err.message)
+    }
+    
     recipes = recipes.rows
 
     const filter = req.query.filter

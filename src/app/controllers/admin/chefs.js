@@ -5,7 +5,14 @@ const {removeDuplicateRecipes} = require("../../lib/utils")
 
 module.exports = {
   async index(req, res) {
-    const chefs = await Chef.all()
+    let chefs;
+    
+    try {
+      chefs = await Chef.all()
+    } catch(err) {
+      console.log(err.message)
+    }
+
     return res.render("admin/chefs/index", {chefs: chefs.rows})  
   },
 
