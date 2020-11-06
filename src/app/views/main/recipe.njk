@@ -1,18 +1,26 @@
  {% extends "./layout.njk" %}
 
  {% block head %}
-  <title>{{ recipe.title }}</title>
-  <link rel="stylesheet" href="/main/main.css">
+ <title>{{ recipe.title }}</title>
+ <link rel="stylesheet" href="/main/main.css">
  {% endblock %}
 
  {% block content %}
 
- <div class="recipe"> 
-   <div class="recipe-header">
+ {# <div class="recipe"> #}
+
+   <div class="avatar">
      <img src="{{recipe.file_src}}" alt="{{recipe.recipe_title}}">
-     <h1>{{recipe.recipe_title}}</h1>
-     <h2>por {{recipe.chef_name}}</h2>
    </div>
+
+   <div class="thumbnail">
+     {% for file in files %}
+     <img src="{{file.file_src}}" alt="{{file.recipe_title}}">
+     {% endfor %}
+   </div>
+
+   <h1>{{recipe.recipe_title}}</h1>
+   <h3 class="author">por {{recipe.chef_name}}</h3>
 
    <div class="recipe-content">
      <div id="ingredients" class="topic">
@@ -57,6 +65,5 @@
        </div>
      </div>
    </div>
- </div>
 
  {% endblock %}

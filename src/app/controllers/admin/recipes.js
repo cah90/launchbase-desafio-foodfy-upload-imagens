@@ -64,7 +64,7 @@ module.exports = {
     const recipe = await Recipe.find(req.params.id)
     if(!recipe) return res.send("Recipe not found")
 
-    return res.render("admin/recipes/show", {recipe: recipe.rows[0], files: recipe.rows})
+    return res.render("admin/recipes/show", {recipe: recipe.rows[0], files: recipe.rows}) 
   },
   
   async edit(req, res) { 

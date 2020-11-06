@@ -35,7 +35,7 @@ module.exports = {
 
     if(!recipe) return res.status(400).send("Recipe not found")
 
-    return res.render("main/recipe", {recipe: recipe.rows[0]}) 
+    return res.render("main/recipe", {recipe: recipe.rows[0], files: recipe.rows}) 
   },
 
   async results(req, res) {
