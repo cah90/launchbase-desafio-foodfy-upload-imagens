@@ -77,6 +77,7 @@ module.exports = {
   INNER JOIN files
   ON recipe_files.file_id = files.id
   WHERE recipes.chef_id = $1
+  ORDER BY recipes.created_at DESC
   `, [id])
 
   return {photoChef, recipes}

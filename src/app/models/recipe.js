@@ -21,6 +21,7 @@ module.exports = {
      ON recipes.id = recipe_files.recipe_id
      INNER JOIN files
      ON recipe_files.file_id = files.id
+     ORDER BY recipes.created_at DESC
      `) 
   }, 
 
@@ -139,7 +140,8 @@ module.exports = {
     INNER JOIN chefs ON recipes.chef_id = chefs.id
     INNER JOIN recipe_files ON recipe_files.recipe_id = recipes.id
     INNER JOIN files ON recipe_files.file_id = files.id
-    WHERE recipes.title ILIKE $1 
+    WHERE recipes.title ILIKE $1
+    ORDER BY recipes.updated_at DESC
     `, values) 
-  }
+  } 
 } 
